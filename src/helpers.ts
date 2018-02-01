@@ -3,6 +3,9 @@
  * (c) 2017 Joachim Wester
  * MIT license
  */
+declare var require: any;
+const CircularJSON = require('circular-json');
+
 const _hasOwnProperty = Object.prototype.hasOwnProperty;
 export function hasOwnProperty(obj, key) {
     return _hasOwnProperty.call(obj, key);
@@ -35,7 +38,7 @@ export function _objectKeys(obj) {
 export function _deepClone(obj) {
     switch (typeof obj) {
         case "object":
-            return JSON.parse(JSON.stringify(obj)); //Faster than ES5 clone - http://jsperf.com/deep-cloning-of-objects/5
+            return JSON.parse(CircularJSON.stringify(obj)); //Faster than ES5 clone - http://jsperf.com/deep-cloning-of-objects/5
         case "undefined":
             return null; //this is how JSON.stringify behaves for array items
         default:
